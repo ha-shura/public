@@ -1,0 +1,251 @@
+﻿{
+    "executedAt":  "2026-06-17 20:02:38 +09:00",
+    "server":  "bootRun + PostgreSQL docker compose",
+    "baseUrl":  "http://localhost:18080",
+    "requirementsChecked":  {
+                                "authorCreateAndUpdate":  true,
+                                "bookCreateAndUpdate":  true,
+                                "booksByAuthor":  true,
+                                "bookHasMultipleAuthors":  true,
+                                "authorHasMultipleBooks":  true,
+                                "priceMustBeZeroOrMore":  true,
+                                "bookMustHaveAuthor":  true,
+                                "birthDateMustBePastOrPresent":  true,
+                                "birthDateRejectsDateTime":  true,
+                                "publishedCannotBecomeUnpublished":  true,
+                                "notFoundAuthorReturns404":  true,
+                                "notFoundBookReturns404":  true,
+                                "missingAuthorIdReturns400":  true,
+                                "invalidPublicationStatusReturns400":  true,
+                                "invalidJsonReturns400":  true
+                            },
+    "steps":  [
+                  {
+                      "name":  "author_create_1",
+                      "method":  "POST",
+                      "path":  "/api/v1/authors",
+                      "input":  "{\"name\":\"Author One 20260617200237\",\"birthDate\":\"1980-01-01\"}",
+                      "status":  201,
+                      "outputRaw":  "{\"id\":14,\"name\":\"Author One 20260617200237\",\"birthDate\":\"1980-01-01\"}",
+                      "output":  {
+                                     "id":  14,
+                                     "name":  "Author One 20260617200237",
+                                     "birthDate":  "1980-01-01"
+                                 }
+                  },
+                  {
+                      "name":  "author_create_2",
+                      "method":  "POST",
+                      "path":  "/api/v1/authors",
+                      "input":  "{\"name\":\"Author Two 20260617200237\",\"birthDate\":\"1981-02-03\"}",
+                      "status":  201,
+                      "outputRaw":  "{\"id\":15,\"name\":\"Author Two 20260617200237\",\"birthDate\":\"1981-02-03\"}",
+                      "output":  {
+                                     "id":  15,
+                                     "name":  "Author Two 20260617200237",
+                                     "birthDate":  "1981-02-03"
+                                 }
+                  },
+                  {
+                      "name":  "author_update",
+                      "method":  "PUT",
+                      "path":  "/api/v1/authors/14",
+                      "input":  "{\"name\":\"Author One Updated 20260617200237\",\"birthDate\":\"1979-12-31\"}",
+                      "status":  200,
+                      "outputRaw":  "{\"id\":14,\"name\":\"Author One Updated 20260617200237\",\"birthDate\":\"1979-12-31\"}",
+                      "output":  {
+                                     "id":  14,
+                                     "name":  "Author One Updated 20260617200237",
+                                     "birthDate":  "1979-12-31"
+                                 }
+                  },
+                  {
+                      "name":  "book_create_multiple_authors",
+                      "method":  "POST",
+                      "path":  "/api/v1/books",
+                      "input":  "{\"title\":\"Shared Book 20260617200237\",\"price\":1200,\"publicationStatus\":\"UNPUBLISHED\",\"authorIds\":[14,15]}",
+                      "status":  201,
+                      "outputRaw":  "{\"id\":14,\"title\":\"Shared Book 20260617200237\",\"price\":1200,\"publicationStatus\":\"UNPUBLISHED\",\"authorIds\":[14,15]}",
+                      "output":  {
+                                     "id":  14,
+                                     "title":  "Shared Book 20260617200237",
+                                     "price":  1200,
+                                     "publicationStatus":  "UNPUBLISHED",
+                                     "authorIds":  [
+                                                       14,
+                                                       15
+                                                   ]
+                                 }
+                  },
+                  {
+                      "name":  "book_update_to_published",
+                      "method":  "PUT",
+                      "path":  "/api/v1/books/14",
+                      "input":  "{\"title\":\"Shared Book Updated 20260617200237\",\"price\":1500,\"publicationStatus\":\"PUBLISHED\",\"authorIds\":[14,15]}",
+                      "status":  200,
+                      "outputRaw":  "{\"id\":14,\"title\":\"Shared Book Updated 20260617200237\",\"price\":1500,\"publicationStatus\":\"PUBLISHED\",\"authorIds\":[14,15]}",
+                      "output":  {
+                                     "id":  14,
+                                     "title":  "Shared Book Updated 20260617200237",
+                                     "price":  1500,
+                                     "publicationStatus":  "PUBLISHED",
+                                     "authorIds":  [
+                                                       14,
+                                                       15
+                                                   ]
+                                 }
+                  },
+                  {
+                      "name":  "book_create_second_book_for_author",
+                      "method":  "POST",
+                      "path":  "/api/v1/books",
+                      "input":  "{\"title\":\"Second Book 20260617200237\",\"price\":800,\"publicationStatus\":\"PUBLISHED\",\"authorIds\":[14]}",
+                      "status":  201,
+                      "outputRaw":  "{\"id\":15,\"title\":\"Second Book 20260617200237\",\"price\":800,\"publicationStatus\":\"PUBLISHED\",\"authorIds\":[14]}",
+                      "output":  {
+                                     "id":  15,
+                                     "title":  "Second Book 20260617200237",
+                                     "price":  800,
+                                     "publicationStatus":  "PUBLISHED",
+                                     "authorIds":  [
+                                                       14
+                                                   ]
+                                 }
+                  },
+                  {
+                      "name":  "books_by_author",
+                      "method":  "GET",
+                      "path":  "/api/v1/authors/14/books",
+                      "input":  "",
+                      "status":  200,
+                      "outputRaw":  "[{\"id\":14,\"title\":\"Shared Book Updated 20260617200237\",\"price\":1500,\"publicationStatus\":\"PUBLISHED\"},{\"id\":15,\"title\":\"Second Book 20260617200237\",\"price\":800,\"publicationStatus\":\"PUBLISHED\"}]",
+                      "output":  {
+                                     "value":  [
+                                                   {
+                                                       "id":  14,
+                                                       "title":  "Shared Book Updated 20260617200237",
+                                                       "price":  1500,
+                                                       "publicationStatus":  "PUBLISHED"
+                                                   },
+                                                   {
+                                                       "id":  15,
+                                                       "title":  "Second Book 20260617200237",
+                                                       "price":  800,
+                                                       "publicationStatus":  "PUBLISHED"
+                                                   }
+                                               ],
+                                     "Count":  2
+                                 }
+                  },
+                  {
+                      "name":  "error_negative_price",
+                      "method":  "POST",
+                      "path":  "/api/v1/books",
+                      "input":  "{\"title\":\"Invalid Price 20260617200237\",\"price\":-1,\"publicationStatus\":\"UNPUBLISHED\",\"authorIds\":[14]}",
+                      "status":  400,
+                      "outputRaw":  "{\"message\":\"price: 価格は0以上で入力してください\"}",
+                      "output":  {
+                                     "message":  "price: 価格は0以上で入力してください"
+                                 }
+                  },
+                  {
+                      "name":  "error_no_authors",
+                      "method":  "POST",
+                      "path":  "/api/v1/books",
+                      "input":  "{\"title\":\"No Author 20260617200237\",\"price\":100,\"publicationStatus\":\"UNPUBLISHED\",\"authorIds\":[]}",
+                      "status":  400,
+                      "outputRaw":  "{\"message\":\"authorIds: 著者を1人以上指定してください\"}",
+                      "output":  {
+                                     "message":  "authorIds: 著者を1人以上指定してください"
+                                 }
+                  },
+                  {
+                      "name":  "error_future_birth_date",
+                      "method":  "POST",
+                      "path":  "/api/v1/authors",
+                      "input":  "{\"name\":\"Future Author 20260617200237\",\"birthDate\":\"2999-01-01\"}",
+                      "status":  400,
+                      "outputRaw":  "{\"message\":\"生年月日は現在日以前の日付を入力してください\"}",
+                      "output":  {
+                                     "message":  "生年月日は現在日以前の日付を入力してください"
+                                 }
+                  },
+                  {
+                      "name":  "error_birth_date_with_time",
+                      "method":  "POST",
+                      "path":  "/api/v1/authors",
+                      "input":  "{\"name\":\"DateTime Author 20260617200237\",\"birthDate\":\"1990-01-01T10:30:00\"}",
+                      "status":  400,
+                      "outputRaw":  "{\"message\":\"birthDate: 生年月日はyyyy-MM-dd形式で入力してください\"}",
+                      "output":  {
+                                     "message":  "birthDate: 生年月日はyyyy-MM-dd形式で入力してください"
+                                 }
+                  },
+                  {
+                      "name":  "error_published_to_unpublished",
+                      "method":  "PUT",
+                      "path":  "/api/v1/books/14",
+                      "input":  "{\"title\":\"Shared Book Updated 20260617200237\",\"price\":1500,\"publicationStatus\":\"UNPUBLISHED\",\"authorIds\":[14,15]}",
+                      "status":  400,
+                      "outputRaw":  "{\"message\":\"出版済みの書籍は未出版に変更できません\"}",
+                      "output":  {
+                                     "message":  "出版済みの書籍は未出版に変更できません"
+                                 }
+                  },
+                  {
+                      "name":  "error_missing_author_books",
+                      "method":  "GET",
+                      "path":  "/api/v1/authors/999999/books",
+                      "input":  "",
+                      "status":  404,
+                      "outputRaw":  "{\"message\":\"著者が見つかりません: 999999\"}",
+                      "output":  {
+                                     "message":  "著者が見つかりません: 999999"
+                                 }
+                  },
+                  {
+                      "name":  "error_missing_book_update",
+                      "method":  "PUT",
+                      "path":  "/api/v1/books/999999",
+                      "input":  "{\"title\":\"Missing Book 20260617200237\",\"price\":100,\"publicationStatus\":\"UNPUBLISHED\",\"authorIds\":[14]}",
+                      "status":  404,
+                      "outputRaw":  "{\"message\":\"書籍が見つかりません: 999999\"}",
+                      "output":  {
+                                     "message":  "書籍が見つかりません: 999999"
+                                 }
+                  },
+                  {
+                      "name":  "error_missing_author_id",
+                      "method":  "POST",
+                      "path":  "/api/v1/books",
+                      "input":  "{\"title\":\"Missing Author 20260617200237\",\"price\":100,\"publicationStatus\":\"UNPUBLISHED\",\"authorIds\":[999999]}",
+                      "status":  400,
+                      "outputRaw":  "{\"message\":\"存在しない著者IDが指定されています: 999999\"}",
+                      "output":  {
+                                     "message":  "存在しない著者IDが指定されています: 999999"
+                                 }
+                  },
+                  {
+                      "name":  "error_invalid_publication_status",
+                      "method":  "POST",
+                      "path":  "/api/v1/books",
+                      "input":  "{\"title\":\"Invalid Status 20260617200237\",\"price\":100,\"publicationStatus\":\"ARCHIVED\",\"authorIds\":[14]}",
+                      "status":  400,
+                      "outputRaw":  "{\"message\":\"リクエストボディの形式が不正です\"}",
+                      "output":  {
+                                     "message":  "リクエストボディの形式が不正です"
+                                 }
+                  },
+                  {
+                      "name":  "error_invalid_json",
+                      "method":  "POST",
+                      "path":  "/api/v1/authors",
+                      "input":  "{\"name\":\"Broken\"",
+                      "status":  400,
+                      "outputRaw":  "{\"message\":\"リクエストボディの形式が不正です\"}",
+                      "output":  {
+                                     "message":  "リクエストボディの形式が不正です"
+                                 }
+                  }
+              ]
+}
