@@ -4,6 +4,10 @@ import com.example.book_management_api.domain.Author
 import com.example.book_management_api.domain.Book
 import com.example.book_management_api.domain.BookWithAuthorIds
 
+/**
+ * ドメインモデルをAPIレスポンスDTOへ変換するMapper。
+ * ControllerやRepositoryに変換処理を散らさないために利用する。
+ */
 fun Author.toResponse(): AuthorResponse =
     AuthorResponse(
         id = id,

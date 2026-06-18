@@ -9,6 +9,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
+/**
+ * 書籍APIの結合テスト。
+ * 書籍の登録・更新・著者紐づけ・業務ルール違反を検証する。
+ */
 class BookApiIntegrationTest : IntegrationTestSupport() {
     @Test
     fun `creates a book`() {

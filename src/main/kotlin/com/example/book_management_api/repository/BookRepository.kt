@@ -9,6 +9,10 @@ import org.jooq.Record
 import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 
+/**
+ * 書籍テーブルへのDBアクセスを担当するRepository。
+ * jOOQを利用して書籍本体の登録・更新・検索を行う。
+ */
 @Repository
 class BookRepository(
     private val dsl: DSLContext,

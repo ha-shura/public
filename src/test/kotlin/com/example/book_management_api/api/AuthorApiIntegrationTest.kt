@@ -10,6 +10,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
+/**
+ * 著者APIの結合テスト。
+ * 著者の登録・更新・入力チェックと、著者に紐づく書籍取得を検証する。
+ */
 class AuthorApiIntegrationTest : IntegrationTestSupport() {
     @Test
     fun `updates an author`() {

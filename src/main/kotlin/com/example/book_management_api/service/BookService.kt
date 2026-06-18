@@ -12,6 +12,10 @@ import com.example.book_management_api.repository.BookRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+/**
+ * 書籍に関する業務処理を担当するサービス。
+ * 著者存在チェックや出版状況変更ルールを含めて、登録・更新処理を制御する。
+ */
 @Service
 class BookService(
     private val authorRepository: AuthorRepository,

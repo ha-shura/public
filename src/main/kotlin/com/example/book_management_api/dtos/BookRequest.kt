@@ -8,6 +8,10 @@ import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Positive
 import jakarta.validation.constraints.Size
 
+/**
+ * 書籍登録・更新APIのリクエストDTO。
+ * 書籍の入力値と著者ID一覧のバリデーションを定義する。
+ */
 data class BookRequest(
     @field:NotBlank(message = "タイトルを入力してください")
     @field:Size(max = 255, message = "タイトルは255文字以内で入力してください")

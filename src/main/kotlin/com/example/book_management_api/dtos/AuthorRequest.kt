@@ -4,6 +4,10 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 
+/**
+ * 著者登録・更新APIのリクエストDTO。
+ * 入力値の必須チェック、文字数、日付形式などのバリデーションを定義する。
+ */
 data class AuthorRequest(
     @field:NotBlank(message = "著者名を入力してください")
     @field:Size(max = 255, message = "著者名は255文字以内で入力してください")

@@ -10,6 +10,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
+/**
+ * API共通の例外ハンドラー。
+ * 入力チェックエラーや業務エラーを、利用者向けのJSONレスポンスへ変換する。
+ */
 @RestControllerAdvice
 class ErrorHandler {
     @ExceptionHandler(NotFoundException::class)
