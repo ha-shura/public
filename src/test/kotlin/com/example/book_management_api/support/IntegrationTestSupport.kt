@@ -14,6 +14,10 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
+/**
+ * API結合テストで共通利用するテスト基盤。
+ * Spring Boot、MockMvc、テスト用DB設定をまとめて定義する。
+ */
 @SpringBootTest(classes = [BookManagementApiApplication::class])
 @AutoConfigureMockMvc
 @ActiveProfiles("test")

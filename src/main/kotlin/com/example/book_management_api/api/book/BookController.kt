@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * 書籍APIのコントローラー。
+ * 書籍の登録・更新のHTTP入口を定義する。
+ */
 @RestController
 @RequestMapping("/api/v1/books")
 class BookController(

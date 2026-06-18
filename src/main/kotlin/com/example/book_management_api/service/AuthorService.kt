@@ -12,6 +12,10 @@ import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
 import java.time.format.DateTimeParseException
 
+/**
+ * 著者に関する業務処理を担当するサービス。
+ * 著者の登録・更新と、著者に紐づく書籍取得のルールを扱う。
+ */
 @Service
 class AuthorService(
     private val authorRepository: AuthorRepository,

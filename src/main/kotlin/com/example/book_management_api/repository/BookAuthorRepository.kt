@@ -4,6 +4,10 @@ import com.example.bookmanagement.jooq.tables.references.BOOK_AUTHORS
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 
+/**
+ * 書籍と著者の関連テーブルへのDBアクセスを担当するRepository。
+ * 多対多の紐づけ登録・更新・検索を行う。
+ */
 @Repository
 class BookAuthorRepository(
     private val dsl: DSLContext,

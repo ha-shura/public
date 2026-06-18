@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository
 import java.time.LocalDate
 import java.time.LocalDateTime
 
+/**
+ * 著者テーブルへのDBアクセスを担当するRepository。
+ * jOOQを利用して著者の登録・更新・検索を行う。
+ */
 @Repository
 class AuthorRepository(
     private val dsl: DSLContext,
